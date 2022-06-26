@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from matplotlib import image
 import pyrebase
 from .models import *
+from django.contrib.auth.decorators import login_required
 
 # Firebase config here.
 config = {
@@ -26,16 +27,24 @@ def home_view(request):
     return render(request, 'index.html', context)
 
 def manage_view(request):
-    guest = database.child('IMG').get().val()
-    print(type(all))
     guestList = []
-    for key, value in guest.items():
-        # print(key, value)
-        # print(value['downloadURL'])
-        # print(value['time'].split('T')[0])
-        # print(value['time'].split('T')[1][:-1])
-        cc = GuestImage(name=key, image=value['downloadURL'], date=value['time'].split('T')[0], time=value['time'].split('T')[1][:-1])
-        guestList.append(cc)
+    keyword = request.GET.get('keyword')
+    if keyword:
+        guest = database.child('IMG').get().val()
+        for key, value in guest.items():
+            if (value['time'].split('T')[0] == keyword):
+                result = GuestImage(name=key, image=value['downloadURL'], date=value['time'].split('T')[0], time=value['time'].split('T')[1][:-1])
+                guestList.append(result)
+    else:
+        guest = database.child('IMG').get().val()
+        for key, value in guest.items():
+            # print(key, value)
+            # print(value['downloadURL'])
+            # print(value['time'].split('T')[0])
+            # print(value['time'].split('T')[1][:-1])
+            result = GuestImage(name=key, image=value['downloadURL'], date=value['time'].split('T')[0], time=value['time'].split('T')[1][:-1])
+            guestList.append(result)
+        
     context = {
         'guestList':guestList,
     }
@@ -77,7 +86,7 @@ def register_view(request):
         password = request.POST['password']
         conPassword = request.POST['confirmPassword']
         if ( password == conPassword):
-            user = authe.create_user_with_email_and_password(user, password)
+            guest = authe.create_user_with_email_and_password(user, password)
             return redirect('home')
         else:
             context = {

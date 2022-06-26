@@ -9,6 +9,21 @@
 </head>
 <body>
     {% block content %}
+    <form style="margin-top:20px;">
+        <div class="row">
+            <div class="col-auto">
+                <input
+                        type="text"
+                        class="form-control"
+                        name="keyword"
+                        placeholder="date"
+                        value="{{ keyword | default:'' }}">
+            </div>
+            <div class="col-auto">
+                <input type="submit" class="btn btn-primary" value="Search">
+            </div>
+        </div>
+    </form>
     <table class="table">
         <thead>
         <th style="text-align: center;">Name</th>
