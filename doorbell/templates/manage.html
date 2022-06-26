@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'index.html' %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage</title>
+</head>
+<body>
+    {% block content %}
+    <table class="table">
+        <thead>
+        <th style="text-align: center;">Name</th>
+        <th>Image</th>
+        <th style="text-align: center;">Date </th>
+        <th style="text-align: center;">Time</th>
+        </thead>
+        <tbody>
+        {% for guest in guestList %}
+            <tr>
+                <td style="text-align: center;">
+                    <a href="{{guest.image}}">{{ guest.name }}</a>
+                </td>
+                <td>
+                    <img class="img-thumbnail" style="width: 200px;height: auto; text-align: center;"
+                         src="{{ guest.image }}" alt="{{ guest.name }}" width="50px">
+                </td>
+                <td style="color: red;text-align:center;">
+                    {{ guest.date }}
+                </td>
+                <td style="color: red;text-align:center;">
+                    {{ guest.time }}
+                </td>
+                <td><a href="{% url 'delete' guest.name %}" style="width: 100px" class="btn btn-danger">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock content %}
+</body>
+</html>
