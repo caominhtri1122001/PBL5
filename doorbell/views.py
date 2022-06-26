@@ -20,17 +20,8 @@ database=firebase.database()
 
 # Create your views here.
 def home_view(request):
-    # name = database.child('IMG').child('Manual_2022-06-26T02:24:28Z').child('downloadURL').get().val()
-    # all = database.child('IMG').get().val()
-    # print(type(all))
-    # list = []
-    # for key, value in all.items():
-    #     print(key, value)
-    #     print(value['downloadURL'])
-    #     cc = GuestImage(name=key, image=value['downloadURL'], date=value['time'])
-    #     list.append(cc)
     context = {
-        # 'list':list,
+        
     }
     return render(request, 'index.html', context)
 
@@ -60,3 +51,37 @@ def delete_view(request, name):
         'guest':name
     }
     return render(request, 'delete.html', context)
+
+def login_view(request):
+    context = {
+        
+    }
+    if request.method == "POST":
+        user = request.POST['username']
+        password = request.POST['password']
+        try:
+            guest = authe.sign_in_with_email_and_password(user, password)
+            return redirect('home')
+        except:
+            context = {
+                'error':'The password or email is incorrect.'
+            }
+    return render(request, 'login.html', context)
+
+def register_view(request):
+    context = {
+        
+    }
+    if request.method == "POST":
+        user = request.POST['username']
+        password = request.POST['password']
+        conPassword = request.POST['confirmPassword']
+        if ( password == conPassword):
+            user = authe.create_user_with_email_and_password(user, password)
+            return redirect('home')
+        else:
+            context = {
+                'error':'The password does not match.'
+            }
+        
+    return render(request, 'register.html', context)
