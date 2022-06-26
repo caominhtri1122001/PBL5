@@ -21,10 +21,13 @@ database=firebase.database()
 
 # Create your views here.
 def home_view(request):
-    context = {
-        
-    }
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
+
+def contact_view(request):
+    return render(request, 'contact.html')
+
+def live_view(request):
+    return render(request, 'live.html')
 
 def manage_view(request):
     guestList = []
