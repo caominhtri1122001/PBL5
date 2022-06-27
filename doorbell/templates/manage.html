@@ -29,6 +29,7 @@
             <thead class="bg-dark text-light">
             <th style="text-align: center;">Name</th>
             <th>Image</th>
+            <th style="text-align: center;">Gender</th>
             <th style="text-align: center;">Date </th>
             <th style="text-align: center;">Time</th>
             <th style="text-align: center;">Action</th>
@@ -42,6 +43,9 @@
                     <td>
                         <img class="img-thumbnail" style="width: 200px;height: auto; text-align: center;"
                              src="{{ guest.image }}" alt="{{ guest.name }}" width="50px">
+                    </td>
+                    <td style="text-align:center;">
+                        {{ guest.gender }}
                     </td>
                     <td style="color: red;text-align:center;">
                         {{ guest.date }}

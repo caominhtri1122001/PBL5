@@ -38,16 +38,16 @@ def manage_view(request):
         guest = database.child('IMG').get().val()
         for key, value in guest.items():
             if (value['time'].split('T')[0] == keyword):
-                result = GuestImage(name=key, image=value['downloadURL'], date=value['time'].split('T')[0], time=value['time'].split('T')[1][:-1])
+                result = GuestImage(name=key, image=value['downloadURL'], date=value['time'].split('T')[0], time=value['time'].split('T')[1][:-1], gender=value['gender'])
                 guestList.append(result)
     else:
         guest = database.child('IMG').get().val()
         for key, value in guest.items():
-            # print(key, value)
+            print(key, value)
             # print(value['downloadURL'])
             # print(value['time'].split('T')[0])
             # print(value['time'].split('T')[1][:-1])
-            result = GuestImage(name=key, image=value['downloadURL'], date=value['time'].split('T')[0], time=value['time'].split('T')[1][:-1])
+            result = GuestImage(name=key, image=value['downloadURL'], date=value['time'].split('T')[0], time=value['time'].split('T')[1][:-1] ,gender=value['gender'])
             guestList.append(result)
         
     context = {
