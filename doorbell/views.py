@@ -1,5 +1,7 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from matplotlib import image
+from matplotlib.style import context
 import pyrebase
 from .models import *
 from django.contrib.auth.decorators import login_required
@@ -60,7 +62,8 @@ def delete_view(request, name):
         database.child('IMG').child(name).remove()
         return redirect('/manage')
     context = {
-        'guest':name
+        'guest':guest['downloadURL'],
+        'name':name,
     }
     return render(request, 'delete.html', context)
 
@@ -97,3 +100,24 @@ def register_view(request):
             }
         
     return render(request, 'register.html', context)
+
+
+def sensor_view(request):
+    if request.method == "POST":
+        if 'led' not in request.POST:
+            led = 'off'
+        else:
+            led = request.POST['led']
+        if 'ring' not in request.POST:
+            ring = 'off'
+        else:
+            ring = request.POST['ring']
+        if 'sensor' not in request.POST:
+            sensor = 'off'
+        else:
+            sensor = request.POST['sensor']
+        print(led,ring,sensor)
+        
+        data = [{'led':led, 'ring':ring, 'sensor':sensor}]
+        return JsonResponse(data, safe=False)
+    return render(request, 'sensor.html')
