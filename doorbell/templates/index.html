@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    {% include 'messages.html' %}
     {% include 'navbar.html' %}
     {% block content %} 
     <div class="hero vh-100 d-flex align-items-center" id="home">

@@ -1,10 +1,8 @@
+from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-from matplotlib import image
-from matplotlib.style import context
 import pyrebase
 from .models import *
-from django.contrib.auth.decorators import login_required
 
 # Firebase config here.
 config = {
@@ -43,7 +41,7 @@ def manage_view(request):
     else:
         guest = database.child('IMG').get().val()
         for key, value in guest.items():
-            print(key, value)
+            # print(key, value)
             # print(value['downloadURL'])
             # print(value['time'].split('T')[0])
             # print(value['time'].split('T')[1][:-1])
@@ -60,6 +58,7 @@ def delete_view(request, name):
     print(guest['time'])
     if request.method == 'POST':
         database.child('IMG').child(name).remove()
+        messages.success(request, "Delete Successfully." )
         return redirect('/manage')
     context = {
         'guest':guest['downloadURL'],
@@ -76,6 +75,7 @@ def login_view(request):
         password = request.POST['password']
         try:
             guest = authe.sign_in_with_email_and_password(user, password)
+            messages.success(request, "Login Successfully.Welcome, " + user )
             return redirect('home')
         except:
             context = {
@@ -93,6 +93,7 @@ def register_view(request):
         conPassword = request.POST['confirmPassword']
         if ( password == conPassword):
             guest = authe.create_user_with_email_and_password(user, password)
+            messages.success(request, "Sign up Successfully.Welcome, " + user )
             return redirect('home')
         else:
             context = {
@@ -121,3 +122,20 @@ def sensor_view(request):
         data = [{'led':led, 'ring':ring, 'sensor':sensor}]
         return JsonResponse(data, safe=False)
     return render(request, 'sensor.html')
+
+# def stream_handler(message):
+#     tp = message['path']
+#     if tp.split("_")[0] == "/Manual":
+#         print("new button press")
+#     if tp.split("_")[0] == "/Sensor":
+#         print("new sensor trigger")
+#     if tp.split("_")[0] == "/Detect":
+#         print("new face detected")
+
+#         #bỏ thông báo nhấn chuông vào đây
+
+#     # print('event={m[event]}; newfile={m[path]}'
+#     #       .format(m=message))
+
+
+# my_stream = database.child('IMG').stream(stream_handler)
