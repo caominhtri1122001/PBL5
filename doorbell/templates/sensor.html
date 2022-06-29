@@ -10,46 +10,32 @@
 <body>
     {% block content %}
     <div class="container">
-        <form action="" method="POST" class="mt-4">
-            {% csrf_token %}
-            <div class="form-group">
-                <h3 class="form-label" for="username">Led</h3>
-                <!-- <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      Led On
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                    <label class="form-check-label" for="flexRadioDefault2">
-                      Led Off
-                    </label>
-                </div> -->
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="led">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
-                </div>
-
-                <br>
-                <br>
-                <h3 class="form-label" for="username">Ring</h3>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="ring">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
-                </div>
-
-                <br>
-                <br>
-                <h3 class="form-label" for="username">Sensor</h3>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="sensor">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
-                </div>
-
+        <div class="text-center">
+            <div class="mb-4">
+                <h3>Manage the Ring Led </h3>
+                <a href="http://192.168.1.69/onRingLed" style="width: 100px;" class="btn btn-success">Led on</a>
+                <a href="http://192.168.1.69/offRingLed" style="width: 100px;" class="btn btn-danger">Led off</a>
             </div>
-            <input class="btn btn-success w-30 mb-4 mt-4" type="submit" value="Sugoi">
-        </form>
+
+            <div class="mb-4">
+                <h3>Manage the Auto Ring </h3>
+                <a href="http://192.168.1.69/onAutoRing" style="width: 100px;" class="btn btn-success">Ring on</a>
+                <a href="http://192.168.1.69/offAutoRing" style="width: 100px;" class="btn btn-danger">Ring off</a>
+            </div>
+
+            <div class="mb-4">
+                <h3>Manage the Sensor </h3>
+                <a href="http://192.168.1.69/onSensor" style="width: 100px;" class="btn btn-success">Sensor on</a>
+                <a href="http://192.168.1.69/offSensor" style="width: 100px;" class="btn btn-danger">Sensor off</a>
+            </div>
+           
+            <div class="mb-4">
+                <h3>Manage the Flash </h3>
+                <a href="http://192.168.1.69/onFlash" style="width: 100px;" class="btn btn-success">Flash on</a>
+                <a href="http://192.168.1.69/offFlash" style="width: 100px;" class="btn btn-danger">Flash off</a>
+            </div>
+          
+        </div>
     </div>
     {% endblock %}
 </body>

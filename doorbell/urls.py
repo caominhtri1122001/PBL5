@@ -11,4 +11,5 @@ urlpatterns = [
     path('manage/',views.manage_view, name="manage"),
     path('<str:name>/delete', views.delete_view, name="delete"),
     path('register/', views.register_view, name="register"),
+    path('ring/', views.ring_view, name="ring"),
 ]

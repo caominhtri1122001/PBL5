@@ -104,24 +104,20 @@ def register_view(request):
 
 
 def sensor_view(request):
-    if request.method == "POST":
-        if 'led' not in request.POST:
-            led = 'off'
-        else:
-            led = request.POST['led']
-        if 'ring' not in request.POST:
-            ring = 'off'
-        else:
-            ring = request.POST['ring']
-        if 'sensor' not in request.POST:
-            sensor = 'off'
-        else:
-            sensor = request.POST['sensor']
-        print(led,ring,sensor)
-        
-        data = [{'led':led, 'ring':ring, 'sensor':sensor}]
-        return JsonResponse(data, safe=False)
     return render(request, 'sensor.html')
+
+# def ring_view(request):
+#     if request.method == "POST":
+#         if 'ring' not in request.POST:
+#             ring = 'off'
+            
+#         else:
+#             ring = request.POST['ring']
+#             my_stream = database.child('IMG').stream(stream_handler)
+#             print(my_stream)
+#             messages.success(request, "Your belldoor is ringing")
+#             redirect('manage')
+#     return render(request, 'ring.html')
 
 # def stream_handler(message):
 #     tp = message['path']
@@ -131,11 +127,12 @@ def sensor_view(request):
 #         print("new sensor trigger")
 #     if tp.split("_")[0] == "/Detect":
 #         print("new face detected")
-
-#         #bỏ thông báo nhấn chuông vào đây
-
-#     # print('event={m[event]}; newfile={m[path]}'
-#     #       .format(m=message))
-
+        
+# def close_stream():
+#     #  Closes stream 
+#     my_stream.close()
 
 # my_stream = database.child('IMG').stream(stream_handler)
+
+
+        
